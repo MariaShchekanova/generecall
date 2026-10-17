@@ -1,0 +1,55 @@
+{
+  "id": "65533",
+  "retrievedAt": "2026-10-17",
+  "sourceUrl": "https://www.ncbi.nlm.nih.gov/clinvar/variation/65533/",
+  "apiUrl": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=clinvar&id=65533&retmode=json",
+  "provenance": "Public NCBI ClinVar ESummary response retrieved through Exa web fetch on 2026-10-17. This snapshot is real public evidence; the paired old report is fictional. Snapshot evidence is not a historical change claim.",
+  "raw": {
+    "header": {"type": "esummary", "version": "0.3"},
+    "result": {
+      "uids": ["65533"],
+      "65533": {
+        "uid": "65533",
+        "obj_type": "single nucleotide variant",
+        "accession": "VCV000065533",
+        "accession_version": "VCV000065533.11",
+        "title": "NM_000081.4(LYST):c.1540C>T (p.Arg514Ter)",
+        "variation_set": [{
+          "measure_id": "76441",
+          "variation_xrefs": [{"db_source":"ClinGen","db_id":"CA344839"},{"db_source":"dbSNP","db_id":"80338645"}],
+          "variation_name": "NM_000081.4(LYST):c.1540C>T (p.Arg514Ter)",
+          "cdna_change": "c.1540C>T",
+          "aliases": [],
+          "variation_loc": [
+            {"status":"current","assembly_name":"GRCh38","chr":"1","band":"1q42.3","start":"235809278","stop":"235809278","inner_start":"","inner_stop":"","outer_start":"","outer_stop":"","display_start":"235809278","display_stop":"235809278","assembly_acc_ver":"GCF_000001405.38","annotation_release":"","alt":"","ref":""},
+            {"status":"previous","assembly_name":"GRCh37","chr":"1","band":"1q42.3","start":"235972578","stop":"235972578","inner_start":"","inner_stop":"","outer_start":"","outer_stop":"","display_start":"235972578","display_stop":"235972578","assembly_acc_ver":"GCF_000001405.25","annotation_release":"","alt":"","ref":""}
+          ],
+          "allele_freq_set": [],
+          "variant_type": "single nucleotide variant",
+          "canonical_spdi": "NC_000001.11:235809277:G:A",
+          "common_name": ""
+        }],
+        "supporting_submissions": {"scv":["SCV000086661","SCV002570366","SCV002223475","SCV005060574"],"rcv":["RCV000055723"]},
+        "germline_classification": {
+          "description":"Pathogenic",
+          "last_evaluated":"2025/10/18 00:00",
+          "review_status":"criteria provided, multiple submitters, no conflicts",
+          "fda_recognized_database":"",
+          "trait_set":[{"trait_xrefs":[{"db_source":"Orphanet","db_id":"167"},{"db_source":"MedGen","db_id":"C0007965"},{"db_source":"MONDO","db_id":"MONDO:0008963"},{"db_source":"OMIM","db_id":"214500"}],"trait_name":"Chédiak-Higashi syndrome"}]
+        },
+        "clinical_impact_classification":{"description":"","last_evaluated":"1/01/01 00:00","review_status":"","fda_recognized_database":"","trait_set":[]},
+        "oncogenicity_classification":{"description":"","last_evaluated":"1/01/01 00:00","review_status":"","fda_recognized_database":"","trait_set":[]},
+        "record_status":"",
+        "gene_sort":"LYST",
+        "chr_sort":"01",
+        "location_sort":"00000000000235809278",
+        "variation_set_name":"",
+        "variation_set_id":"",
+        "genes":[{"symbol":"LYST","geneid":"1130","strand":"-","source":"submitted"}],
+        "molecular_consequence_list":["nonsense"],
+        "protein_change":"R514*",
+        "fda_recognized_database":""
+      }
+    }
+  }
+}

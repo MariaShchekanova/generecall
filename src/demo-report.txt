@@ -1,0 +1,11 @@
+FICTIONAL REPORT — DEMONSTRATION ONLY
+This synthetic excerpt illustrates a difference between a report and a current public record. It is not evidence of a real historical reclassification and does not describe a real patient.
+
+Laboratory: Example Genetics Laboratory (fictional)
+Report date: 2020-06-15
+Gene: LYST
+Variant: NM_000081.4(LYST):c.1540C>T (p.Arg514Ter)
+ClinVar accession: VCV000065533
+Classification: Variant of uncertain significance
+
+Demo note: The classification and report date above are invented for the demonstration. The ClinVar identifier and the linked current public evidence are real. Request an updated interpretation from the original testing laboratory before drawing conclusions.

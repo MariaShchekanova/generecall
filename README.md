@@ -2,6 +2,8 @@
 
 A personal genetic report follow-up workspace. Paste a report excerpt, confirm the exact ClinVar variant, review public evidence, and prepare an editable request to the original testing laboratory.
 
+Read the [GeneRecall Product Overview](GeneRecall-Product-Overview.docx) for the need, solution, product workflow, demo, current limitations, and teammate setup in an editable Word document.
+
 ## Run locally
 
 Requires Node.js 22 or later. No dependencies or package installation.

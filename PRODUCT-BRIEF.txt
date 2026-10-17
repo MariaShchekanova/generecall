@@ -1,0 +1,142 @@
+GENERECALL — PRODUCT BRIEF
+Prepared for the teammate handoff · October 17, 2026
+
+ONE SENTENCE
+
+GeneRecall helps one person turn an existing genetic report into a clear,
+source-backed follow-up request to their original testing laboratory.
+
+THE NEED
+
+A person may have a report they do not fully understand, an uncertain result,
+and no simple way to organize a useful follow-up. Looking at a public variant
+record raises practical questions: Is this the same variant? What does the
+public record say? What should I ask the laboratory that issued my report?
+
+Our product hypothesis is that gathering those details and drafting the
+request takes enough effort that people postpone it. GeneRecall reduces that
+administrative effort while leaving interpretation with the laboratory and
+appropriate genetics professionals. This hypothesis still needs user research;
+we have not demonstrated clinical benefit or measured time saved.
+
+THE FIRST USER
+
+An adult with an existing genetic test report who wants help preparing a
+follow-up. They can provide a short excerpt and confirm one exact variant.
+They want a clear next step rather than a database they must learn from scratch.
+
+Example persona: Alex has an old report with a variant of uncertain significance.
+Alex wants to ask the issuing laboratory whether an updated review is available,
+but needs help collecting the identifier, original label, source, and questions.
+
+The current MVP works best with one variant, a labeled text excerpt, and an
+exact ClinVar variation identifier. It is a hackathon prototype, not a validated
+clinical service or a substitute for laboratory interpretation.
+
+THE SOLUTION
+
+1. Bring a report excerpt. Paste text or open a .txt file.
+2. Read and confirm. Optional AI extracts fields; a conservative evidence parser
+   is available. The person can edit the fields and must confirm the exact ID.
+3. Compare the sources. Fetch the exact public ClinVar record and show its
+   aggregate label beside the report's label, with provenance and review status.
+4. Prepare the follow-up. Generate an editable administrative request with the
+   relevant details, source links, and questions.
+5. Take it away. Copy, download, or print the draft. Nothing is sent automatically.
+
+THE VALUE
+
+The outcome is a prepared conversation: the report's details, the public source,
+and a useful draft in one place. The product does the extraction, lookup, evidence
+organization, and drafting work for an individual. The individual checks the
+information and decides what to do with the draft.
+
+The design priorities are an obvious next step, visible sources, editable
+information, and honest handling of uncertainty. A difference between labels is
+presented as a question for professional review. A matching label is also not an
+assurance that a report is current or that a result has a particular health meaning.
+
+WHAT EXISTS TODAY
+
+• A responsive three-step web workspace: Your report → Review → Your follow-up.
+• Pasted text and .txt import, with a 40,000-character report limit.
+• Optional OpenAI extraction with a strict response schema and source checks.
+• A visibly labeled rules-based fallback when AI is unavailable.
+• Editable report fields and an exact-identifier confirmation step.
+• Live exact-record lookup from NCBI ClinVar.
+• A dated, real public demo snapshot for a dependable demonstration.
+• Explicit handling of differences, matching labels, conflicts, and missing data.
+• An editable letter with copy, text download, print, and evidence export.
+• A local, dependency-free Node application and a deployable Worker build.
+• Automated engine and route tests, plus a recorded narrated product demo.
+
+The app has no account system, report database, saved history, scheduled monitoring,
+automatic reclassification alerts, PDF extraction, or automatic email delivery.
+Exa/deep research informed the original idea exploration. Exa is not a runtime
+integration in this build. Do not present it as powering the live evidence lookup.
+
+THE DEMO'S EXACT PREMISE
+
+The old report is FICTIONAL. Its uncertain-significance label is invented for
+the demonstration. The public ClinVar record is real: variation 65533, accession
+VCV000065533, for the LYST variant shown in the app. A real dated snapshot ships
+with the source, and Refresh evidence can request the current record from NCBI.
+
+This demonstrates a difference between a fictional report and a public aggregate.
+It does not demonstrate a verified historical reclassification, a real patient's
+result, or a change made by the original laboratory. The demo letter must not be
+sent as a real patient request. A live lookup and a snapshot are visibly labeled.
+
+Public demo source: https://www.ncbi.nlm.nih.gov/clinvar/variation/65533/
+
+WHAT WE CAN SAY IN A PITCH
+
+“GeneRecall turns a genetic report into a prepared follow-up. You confirm the
+variant, review the public evidence, and leave with a draft for your laboratory.”
+
+Avoid claims that the tool diagnoses, calculates personal risk, independently
+reinterprets a variant, detects a proven change in a laboratory's interpretation,
+monitors reports in the background, or improves clinical outcomes. Those are not
+capabilities or validated results of this prototype.
+
+60-SECOND DEMO SCRIPT
+
+0–10 seconds: “An old genetic report can leave you with a practical question:
+what should I ask the laboratory next? GeneRecall organizes that follow-up.”
+
+10–20 seconds: Click Open demo case. “This prior report is fictional. The public
+evidence is real. We start with one exact variant, so the comparison is specific.”
+
+20–35 seconds: Show Review and Refresh evidence. “Here are the two source labels,
+the public record, and its review information. A difference gives us a question;
+it does not prove that the issuing laboratory changed the result.”
+
+35–50 seconds: Click Open my follow-up and edit a line. “GeneRecall prepares the
+request with the identifiers, sources, and questions already included.”
+
+50–60 seconds: Download or print. “Review it, make it yours, and bring it to the
+right professional. Your next conversation is already prepared.”
+
+WHAT TO VALIDATE NEXT
+
+Ask people with prior reports and genetics professionals to walk through the
+prototype using synthetic or appropriately consented examples. Can they confirm
+the correct variant? Do they understand what the two labels do and do not show?
+Is the draft useful to the receiving laboratory? Where do they hesitate?
+
+Track task completion, corrections needed, identifier errors caught, confusion
+about provenance, and draft usefulness. Do not infer clinical efficacy from a
+smooth demonstration. Future product choices should follow that evidence.
+
+NEXT PRODUCT PRIORITIES
+
+1. Make the current narrow workflow reliable across more realistic single-variant
+   excerpts, ambiguous wording, incomplete records, and provider failures.
+2. Evaluate extraction against a labeled, de-identified or synthetic report set.
+   Add PDF import only with clear extraction quality checks and user confirmation.
+3. Improve source context and matching with genetics-domain review before adding
+   broader interpretation features.
+4. Choose a privacy and hosting model before introducing accounts, saved reports,
+   sharing, or real patient use. Define deletion and access controls explicitly.
+5. Investigate laboratory-specific submission instructions and whether a saved
+   follow-up history is actually useful. Monitoring is a separate future feature.

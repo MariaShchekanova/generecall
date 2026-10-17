@@ -1,0 +1,10 @@
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+*.tar.gz
+.DS_Store
+
+# Hosting identity belongs to the local developer account.
+.openai/

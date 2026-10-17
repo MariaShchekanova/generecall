@@ -1,0 +1,59 @@
+GENERECALL 1.1 — VALIDATION NOTES
+October 17, 2026 · macOS / bundled Node.js
+
+RESULT
+36 automated tests passed; Worker build passed.
+The source ZIP was extracted to a separate clean directory with no API key,
+no original hosting metadata, and no package dependencies. All 36 tests,
+the build, 4 generated-Worker scenarios, and 14 local HTTP/startup checks passed.
+
+WHAT CHANGED
+• Editing a report clears stale fields and derived evidence.
+• Cancelled or late requests cannot overwrite the current review.
+• Refreshing evidence preserves edited letters; replacement is explicit.
+• Extraction warnings remain visible; failures are actionable.
+• Variant/transcript matching and ambiguous identifiers are stricter.
+• Missing or mismatched records cannot silently become snapshot evidence.
+• Unicode requests honor the advertised 40,000-character limit.
+• Keyboard navigation, mobile wrapping, labels, and contrast improved.
+• Portable launchers and clearer startup errors added.
+
+BROWSER CHECKS
+Demo → dated evidence → editable letter: passed.
+Real live ClinVar refresh with source/date: passed.
+Edited letter preserved after live refresh: passed.
+Use updated draft replaces the edited text: passed.
+Report edits invalidate old extracted values/results: passed.
+Live AI credit exhaustion displays a persistent, labeled parser fallback: passed.
+Escape cancels an in-progress comparison and keeps report fields: passed.
+Letter copy matches the current textarea; text download inspected: passed.
+Keyboard End selects the follow-up tab: passed.
+320px and 1440px layouts have no document overflow: passed.
+JSON export was invoked; a saved JSON file was not inspected in this pass.
+Print action was invoked; its native dialog was not inspectable through the
+available automation. A saved PDF was not verified in this pass.
+
+LIMITS
+This is a tested hackathon MVP, not a guarantee of bug-free behavior or clinical
+validity. Live AI success is unverified because the original account lacks API
+credits. Its response handling is covered by mocked tests. Live ClinVar worked
+during verification; external service availability can change.
+Windows launcher syntax is supplied but has not been run on Windows.
+The demo video predates these reliability fixes; its core workflow still applies.
+The hosted version is unpublished. Localhost links are local to one computer.
+
+CLEAN-COPY HTTP/STARTUP CHECKS
+• Starts with no key or hosting metadata
+• Serves UI with no-store/security headers
+• Returns honest fictional demo with exact public snapshot
+• Extracts without credentials
+• Accepts full-length Unicode text
+• Rejects overlength text
+• Rejects malformed request shape
+• Rejects cross-origin POST
+• Requires identifier confirmation
+• Blocks wrong identifier before lookup
+• Does not serve environment files
+• Rejects oversized HTTP body with JSON error
+• Explains port conflicts
+• Explains invalid port configuration

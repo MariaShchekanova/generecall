@@ -1,0 +1,12 @@
+{
+  "name": "generecall",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "start": "node scripts/serve.mjs",
+    "test": "node --test src/engine.test.mjs src/server.test.mjs src/ui.test.mjs"
+  }
+}

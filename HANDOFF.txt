@@ -1,0 +1,217 @@
+GENERECALL — TEAMMATE HANDOFF
+October 17, 2026
+
+START HERE
+
+Read PRODUCT-BRIEF.txt for the need, persona, solution, workflow, demo premise,
+pitch, and product priorities. This file explains how to run and change the app.
+
+The shared source repository is:
+https://github.com/MariaShchekanova/generecall
+
+Clone it with:
+
+   git clone https://github.com/MariaShchekanova/generecall.git
+   cd generecall
+
+The repository includes code, tests, launchers, and product/technical docs.
+The demo video and complete ZIP remain separate presentation assets.
+Do not commit .env.local, API keys, or account-specific hosting metadata.
+
+The current local URL is http://127.0.0.1:4317. A localhost URL works only on the
+computer running the server; it is not a shareable hosted website. Hosted
+publication had not completed at handoff. The Worker build is available for a
+future authorized deployment.
+
+LOCAL SETUP — ABOUT TWO MINUTES
+
+1. Install Node.js 22 or newer if needed. The standard Node installer includes npm.
+   Check:
+
+   node --version
+   npm --version
+
+2. Clone the repository and open the folder containing package.json in a
+   terminal or code editor. No npm install is necessary: there are no dependencies.
+
+3. Start the app:
+
+   npm start
+
+4. Open http://127.0.0.1:4317 and click Open demo case.
+   Keep the terminal running. Stop the server with Ctrl+C when finished.
+
+5. Check and build the source before sharing a changed version:
+
+   npm test
+   npm run build
+
+Equivalent commands are node scripts/serve.mjs, node --test
+src/engine.test.mjs src/server.test.mjs src/ui.test.mjs, and node scripts/build.mjs.
+Portable launchers are included for macOS (.command) and Windows (.cmd).
+After editing the HTML, refresh the browser. After editing backend modules or
+environment settings, restart the server as well.
+
+OPTIONAL LIVE AI
+
+The demo and evidence parser work without an OpenAI key. To enable live extraction,
+create your own .env.local alongside package.json, using .env.example as a guide:
+
+   OPENAI_API_KEY=<your own key, entered locally>
+   OPENAI_MODEL=gpt-5-mini
+   PORT=4317
+
+Restart the server after changing environment values. Never paste a secret into
+chat, commit it, put it in frontend code, or include it in a handoff archive.
+.env.local is ignored by Git. Keep credentials server-side.
+
+The original developer's key was stored securely on the original machine. At the
+last live check its account had no available API credits, so live AI extraction
+fell back to the labeled evidence parser. That key is not part of this handoff.
+A configured key alone does not prove that a request can succeed. A teammate
+needs their own usable project/key and available API credits.
+
+OpenAI billing: https://platform.openai.com/settings/organization/billing
+
+ARCHITECTURE
+
+Browser UI → local Node HTTP adapter → shared request router → explicit evidence
+logic and optional OpenAI / NCBI requests.
+
+The frontend is a single self-contained HTML/CSS/JavaScript file. The same core
+router can run locally or in the generated Cloudflare Worker. There is no database,
+package dependency, frontend framework, or external build tool.
+
+FILE MAP
+
+src/index.html
+  Responsive UI, form state, step navigation, source displays, editable draft,
+  exports, and API calls. This is the main file for visual/interaction changes.
+
+src/engine.mjs
+  Pure core logic: accession normalization, conservative report parsing, ClinVar
+  normalization, comparison rules, and letter generation. Change rules here first
+  and add tests for meaningful edge cases.
+
+src/server.mjs
+  Shared request router; request validation; optional OpenAI extraction; live
+  ClinVar fetch; error handling; and dated demo fallback.
+
+src/demo-report.txt
+  Clearly fictional prior report. Do not remove the fictional/demo markings.
+
+src/demo-clinvar.json
+  Real dated public response plus provenance. Refresh deliberately and preserve
+  its actual retrieval date and source. Never label a snapshot as a live request.
+
+src/engine.test.mjs / src/server.test.mjs / src/ui.test.mjs
+  Core behavior, mocked route/provider, and frontend state regression tests.
+  The frontend harness uses a minimal DOM; browser checks remain necessary.
+  These do not establish
+  clinical validity or prove the current availability of external services.
+
+scripts/serve.mjs
+  Local HTTP server, environment-file loading, and adapter into the shared router.
+  It listens on 127.0.0.1, not the public network interface.
+
+scripts/build.mjs
+  Produces dist/server/index.js by embedding source and public demo assets, then
+  checks that the Worker exports its handler. Edit source, not generated output.
+
+.openai/hosting.json (optional; excluded from the teammate archive)
+  Local Sites project metadata for the original account. The app and Worker build
+  work without it. Configure a separate hosting project and server-side secrets
+  for a future deployment; do not reuse the original account's project identity.
+
+.env.example / .gitignore / package.json
+  Environment names, secret/build exclusions, and npm commands.
+
+PRODUCT-BRIEF.txt / HANDOFF.txt / README.md
+  Product context, technical handoff, and the short run guide.
+
+API SURFACE
+
+GET /api/config
+  Reports configuration state. It returns no secret and does not spend an AI
+  request to test credentials.
+
+GET /api/demo
+  Returns the fictional report, real dated snapshot, comparison, and draft.
+
+POST /api/parse
+  Takes a text excerpt and attempts optional AI extraction when enabled; otherwise
+  returns conservative parsing with an explicit engine/fallback label.
+
+POST /api/compare
+  Takes the text, user-reviewed report fields, exact accession, and confirmed:true.
+  Retrieves the exact ClinVar record and returns evidence, comparison, and draft.
+  The demo can use the dated same-variant snapshot when its live lookup fails.
+
+Treat report text and provider output as untrusted input. Preserve source checks,
+identifier checks, safe DOM rendering, length limits, and honest fallback messages
+when refactoring. Read the source for full request and response field contracts.
+
+DATA AND PRIVACY BOUNDARIES
+
+The app does not intentionally save report text to a database, localStorage, or
+application logs. Processing happens in server memory and browser state. A page
+refresh or reset clears the working UI; this is not a durable patient record.
+Exports saved by the person remain on their computer.
+
+If AI extraction is enabled, the submitted excerpt is sent to OpenAI with
+store:false. That flag is not a promise of zero provider retention; providers and
+hosting infrastructure have their own policies. The ClinVar lookup uses the exact
+public variation ID. There is no automatic sending of the letter.
+
+The prototype has no authentication, multi-user isolation, formal privacy review,
+or established clinical deployment process. Keep development/demo material
+synthetic. Adding accounts, real patient storage, or public hosting requires a
+deliberate design for access, consent, retention, and deletion.
+
+SMOKE CHECK BEFORE THE NEXT DEMO
+
+• Run npm test and npm run build.
+• Open demo case and confirm fictional/report and dated/live source labels remain
+  obvious. Walk through Review and Your follow-up.
+• Refresh evidence online; verify the source link and retrieval information.
+• Check a malformed or mismatched accession: it should not silently compare the
+  wrong record. Ambiguous/conflicting data should stay unresolved.
+• Edit, copy, download, and print the draft; ensure the displayed draft is exported.
+• Reset and start again: previous evidence and drafts must not reappear as current.
+• Try narrow/mobile width, keyboard navigation, and a long excerpt.
+• If AI is part of the presentation, test a real request with your own funded key.
+  Show the provider/fallback state truthfully if it is unavailable.
+
+KNOWN SCOPE LIMITS
+
+Only one selected variant and text/.txt input are supported. The conservative
+parser expects recognizable labeled fields and may need manual corrections.
+The app does not infer a historical reclassification from two different sources,
+resolve conflicting submissions, diagnose, or recommend treatment. The demo's
+prior VUS label is invented; the real ClinVar evidence does not validate that
+invented history. External providers can time out or be unavailable.
+
+NEXT DEVELOPMENT SESSION
+
+1. Run the app without credentials and complete the demo once.
+2. Read PRODUCT-BRIEF.txt and the core tests before changing comparison behavior.
+3. Choose one focused improvement; agree who owns src/index.html versus engine
+   and router files to avoid overlapping edits.
+4. Add a regression test for any real bug fixed. Retest the end-to-end demo after
+   changes to state, identifiers, provider responses, or exports.
+5. Prioritize reliable extraction/validation and user comprehension before adding
+   PDFs, history, alerts, or integrations. Exa was used for research only.
+6. Share source through a private repository or a new sanitized ZIP. Exclude all
+   .env files except .env.example, credentials, dependencies, logs, build output,
+   and account-specific .openai hosting metadata. Use a feature branch and share changes through a pull request.
+
+SUGGESTED MESSAGE TO SEND WITH THE FILES
+
+“Here is GeneRecall, our personal genetic-report follow-up prototype. Clone the
+GitHub repository, open its folder, install Node 22+ if needed, and run npm start.
+Open http://127.0.0.1:4317 and choose Open demo case. Read PRODUCT-BRIEF.txt for the
+need and pitch, then HANDOFF.txt for architecture and next steps. It works without
+an API key; use your own .env.local and funded OpenAI project for live extraction.
+The prior demo report is fictional, the public ClinVar evidence is real, and the
+app prepares a draft rather than sending it. Please run npm test and npm run build
+before handing back changes. The video shows the intended demo flow.”
